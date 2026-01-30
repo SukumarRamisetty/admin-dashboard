@@ -11,12 +11,8 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-
-/* ================= CONTEXT ================= */
 const ThemeContext = createContext();
 const localizer = momentLocalizer(moment);
-
-/* ================= DATA ================= */
 const chartData = [
   { name: "Mon", tickets: 120 },
   { name: "Tue", tickets: 200 },
@@ -24,16 +20,12 @@ const chartData = [
   { name: "Thu", tickets: 300 },
   { name: "Fri", tickets: 280 },
 ];
-
 const events = [
   { title: "Movie Booking", start: new Date(2026, 0, 18), end: new Date(2026, 0, 18) },
   { title: "Premiere Show", start: new Date(2026, 0, 20), end: new Date(2026, 0, 20) },
 ];
-
-/* ================= APP ================= */
 export default function App() {
   const [theme, setTheme] = useState("light");
-
   return (
     <ThemeContext.Provider
       value={{
@@ -47,11 +39,8 @@ export default function App() {
     </ThemeContext.Provider>
   );
 }
-
-/* ================= LAYOUT ================= */
 function Layout() {
   const { toggleTheme } = useContext(ThemeContext);
-
   return (
     <div className="flex h-screen bg-gray-100">
       <aside className="w-64 bg-gray-900 text-white p-5">
@@ -64,7 +53,6 @@ function Layout() {
           <Link to="/kanban" className="block hover:bg-gray-700 p-2 rounded">Kanban</Link>
         </nav>
       </aside>
-
       <div className="flex-1 flex flex-col">
         <header className="bg-white p-4 flex justify-between items-center shadow">
           <h2 className="text-xl font-bold">Admin Dashboard</h2>
@@ -75,7 +63,6 @@ function Layout() {
             Toggle Theme
           </button>
         </header>
-
         <main className="p-6 overflow-auto">
           <Routes>
             <Route path="/" element={<Dashboard />} />
@@ -89,8 +76,6 @@ function Layout() {
     </div>
   );
 }
-
-/* ================= DASHBOARD ================= */
 function Dashboard() {
   return (
     <div className="space-y-6">
@@ -99,7 +84,6 @@ function Dashboard() {
         <Card title="Tickets" value="8430" />
         <Card title="Revenue" value="₹12.5L" />
       </div>
-
       <div className="bg-white p-6 rounded shadow border">
         <h3 className="font-bold mb-4">Weekly Ticket Sales</h3>
         <ResponsiveContainer width="100%" height={300}>
@@ -114,8 +98,6 @@ function Dashboard() {
     </div>
   );
 }
-
-/* ================= USERS TABLE ================= */
 function UsersTable() {
   const [users, setUsers] = useState([
     { id: 1, name: "Ravi", email: "ravi@gmail.com" },
@@ -123,15 +105,12 @@ function UsersTable() {
     { id: 3, name: "Amit", email: "amit@gmail.com" },
     { id: 4, name: "John", email: "john@gmail.com" },
   ]);
-
   const deleteUser = (id) => {
     setUsers(users.filter((u) => u.id !== id));
   };
-
   return (
     <div className="bg-white p-6 rounded shadow border">
       <h3 className="font-bold mb-4">Users Table</h3>
-
       <table className="w-full border">
         <thead className="bg-gray-200">
           <tr>
@@ -160,29 +139,23 @@ function UsersTable() {
     </div>
   );
 }
-
-/* ================= MOVIES (ADD + EDIT + GENRE) ================= */
 function Movies() {
   const [movies, setMovies] = useState([
     { id: 1, title: "Avatar", genre: "Sci-Fi", price: 250 },
     { id: 2, title: "Inception", genre: "Thriller", price: 200 },
   ]);
-
   const addMovie = () => {
     const title = prompt("Movie name");
     const genre = prompt("Genre");
     const price = prompt("Price");
-
     if (title && genre && price > 0) {
       setMovies([...movies, { id: Date.now(), title, genre, price }]);
     }
   };
-
   const editMovie = (movie) => {
     const newTitle = prompt("Edit movie name", movie.title);
     const newGenre = prompt("Edit genre", movie.genre);
     const newPrice = prompt("Edit price", movie.price);
-
     if (newTitle && newGenre && newPrice > 0) {
       setMovies(
         movies.map((m) =>
@@ -193,7 +166,6 @@ function Movies() {
       );
     }
   };
-
   return (
     <div className="bg-white p-6 rounded shadow border">
       <h3 className="font-bold mb-4">Movies</h3>
@@ -235,8 +207,6 @@ function Movies() {
     </div>
   );
 }
-
-/* ================= CALENDAR ================= */
 function CalendarPage() {
   return (
     <div className="bg-white p-6 rounded shadow border">
@@ -244,8 +214,6 @@ function CalendarPage() {
     </div>
   );
 }
-
-/* ================= KANBAN ================= */
 function Kanban() {
   const [board, setBoard] = useState({
     todo: ["Add new movie", "Schedule show"],
@@ -290,8 +258,6 @@ function Kanban() {
     </div>
   );
 }
-
-/* ================= CARD ================= */
 function Card({ title, value }) {
   return (
     <div className="bg-white p-6 rounded shadow border">
